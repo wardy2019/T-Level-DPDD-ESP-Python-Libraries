@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T Level ESP Task 4a – Pandas & Matplotlib Knowledge Library</title>
+<meta name="description" content="Reference library of pandas and matplotlib commands for Task 4a in the T Level Digital Production, Design and Development ESP.">
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;background:#fff;color:#0f172a;line-height:1.6;margin:0}
+  header{background:#2563eb;color:#fff;padding:1.5rem}
+  header h1{margin:0;font-size:1.5rem}
+  main{max-width:960px;margin:0 auto;padding:1rem}
+  h2{border-bottom:2px solid #e2e8f0;padding-bottom:.3rem;margin-top:2rem;color:#1e3a8a}
+  h3{margin-top:1.2rem;color:#0f172a}
+  pre{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:.75rem;overflow-x:auto}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .desc{color:#475569;font-size:.95rem;margin-top:-.3rem;margin-bottom:.5rem}
+  footer{margin-top:2rem;padding:1rem 0;border-top:1px solid #e2e8f0;font-size:.9rem;color:#475569}
+</style>
+</head>
+<body>
+<header>
+  <h1>T Level ESP Task 4a – Pandas & Matplotlib Knowledge Library</h1>
+  <p>Complete reference of commands, examples, and patterns for Task 4a in the T Level Digital Production, Design and Development ESP.</p>
+</header>
+<main>
+
+<section id="getting-ready">
+  <h2>Getting Ready for Each Lesson</h2>
+  <p class="desc">Steps before you start coding.</p>
+  <pre><code># Import libraries with short aliases
+import pandas as pd
+import matplotlib.pyplot as plt</code></pre>
+</section>
+
+<section id="importing">
+  <h2>1. Importing, Reading, and Understanding Data</h2>
+  <pre><code># Read data from a CSV file into a DataFrame
+df = pd.read_csv("your_data.csv")
+
+# Show the first 5 rows
+print(df.head())
+
+# Show column info (types and counts)
+print(df.info())
+
+# Show summary statistics
+print(df.describe())</code></pre>
+</section>
+
+<section id="filtering">
+  <h2>2. Selecting, Filtering, and Creating Subsets</h2>
+  <pre><code># Select a single column
+df["Column"]
+
+# Filter rows where column equals a value
+df[df["Column"] == "Value"]
+
+# Filter with multiple conditions
+df[(df["Column"] == "X") & (df["Other"] == "Y")]
+
+# Create a subset DataFrame
+subset = df[df["Category"] == "X"]</code></pre>
+</section>
+
+<section id="counting">
+  <h2>3. Counting, Sorting, and Finding Extremes</h2>
+  <pre><code># Count frequency of values
+df["Item"].value_counts()
+
+# List unique values
+df["Item"].unique()
+
+# Sort by a column
+df.sort_values("Value", ascending=False)
+
+# Index of highest value
+df["Value"].idxmax()
+
+# Row at that index
+df.loc[df["Value"].idxmax()]</code></pre>
+</section>
+
+<section id="columns">
+  <h2>4. Creating New Columns</h2>
+  <pre><code># Create a calculated column
+df["NewColumn"] = df["Value"] * 1.2
+
+# Create a True/False column
+df["IsLarge"] = df["Value"] > 50</code></pre>
+</section>
+
+<section id="grouping">
+  <h2>5. Grouping and Summarising Data</h2>
+  <pre><code># Group by one column and sum
+df.groupby("Category")["Value"].sum()
+
+# Group by two columns and calculate average
+df.groupby(["Date", "Category"])["Value"].mean()</code></pre>
+</section>
+
+<section id="dates">
+  <h2>6. Working with Dates</h2>
+  <pre><code># Convert column to datetime
+df["Date"] = pd.to_datetime(df["Date"])
+
+# Create weekday column
+df["Weekday"] = df["Date"].dt.day_name()
+
+# Convert input into datetime
+end_date = input("Enter a date: ")
+pd.to_datetime(end_date, dayfirst=True)</code></pre>
+</section>
+
+<section id="validation">
+  <h2>7. Input Validation and Error Handling</h2>
+  <pre><code>try:
+    # Convert input to integer
+    user_input = int(input("Enter a number: "))
+except ValueError:
+    # Handle invalid input
+    print("Invalid input")</code></pre>
+</section>
+
+<section id="menus">
+  <h2>8. Menus and Mapping Choices</h2>
+  <pre><code># Print a simple menu
+print("1. Option A")
+print("2. Option B")
+
+# Store options in a list
+options = ["Option A", "Option B"]
+
+# Get user choice
+choice = int(input("Choose 1 or 2: "))
+
+# Map choice to option
+selected = options[choice - 1]</code></pre>
+</section>
+
+<section id="functions">
+  <h2>9. Using Functions and Adding Comments</h2>
+  <pre><code># Define a reusable function
+def show_totals():
+    # Print total of 'Value' column
+    print(df["Value"].sum())
+
+# Call the function
+show_totals()</code></pre>
+</section>
+
+<section id="formatting">
+  <h2>10. Formatting Output for the User</h2>
+  <pre><code>total = 250
+
+# Using format()
+print("Total: £{:.2f}".format(total))
+
+# Using f-string
+print(f"Total: £{total:.2f}")</code></pre>
+</section>
+
+<section id="graphing">
+  <h2>11. Graphing with Matplotlib</h2>
+  <pre><code># Bar chart
+df.groupby("Category")["Value"].sum().plot(kind="bar")
+plt.title("Total by Category")
+plt.xlabel("Category")
+plt.ylabel("Value")
+plt.tight_layout()
+plt.show()
+
+# Line chart
+df.groupby("Date")["Value"].sum().plot(kind="line")
+plt.title("Value Over Time")
+plt.xlabel("Date")
+plt.ylabel("Value")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Pie chart
+df["Category"].value_counts().plot(kind="pie", autopct="%1.1f%%")
+plt.title("Category Share")
+plt.tight_layout()
+plt.show()</code></pre>
+</section>
+
+<section id="loc-iloc">
+  <h2>12. loc and iloc</h2>
+  <pre><code># Access row and column by label
+df.loc[5, "Value"]
+
+# Access by index positions
+df.iloc[0:3, 1:3]</code></pre>
+</section>
+
+<section id="stats">
+  <h2>13. Statistical Methods</h2>
+  <pre><code># Calculate statistics
+mean_value = df["Value"].mean()
+min_value = df["Value"].min()
+max_value = df["Value"].max()
+sum_value = df["Value"].sum()</code></pre>
+</section>
+
+<section id="extremes">
+  <h2>14. idxmax and idxmin</h2>
+  <pre><code># Index of maximum
+max_index = df["Value"].idxmax()
+
+# Index of minimum
+min_index = df["Value"].idxmin()</code></pre>
+</section>
+
+<section id="sort">
+  <h2>15. Groupby with Sort</h2>
+  <pre><code># Group and calculate mean
+average = df.groupby(["Menu Item", "Service"]).mean()
+
+# Get unique months and sort them
+months = df["Month"].unique()
+months.sort()</code></pre>
+</section>
+
+<section id="patterns">
+  <h2>Core Reusable Patterns</h2>
+  <pre><code># Filter by one condition
+df[df["Column"] == "Value"]
+
+# Filter by two conditions
+df[(df["X"] == "A") & (df["Y"] == "B")]
+
+# Group and sum
+df.groupby("Category")["Value"].sum()
+
+# Group and mean
+df.groupby(["X", "Y"])["Value"].mean()
+
+# Sort values
+df.sort_values("Value", ascending=False)
+
+# Find extremes
+df["Value"].idxmax()
+df["Value"].idxmin()
+
+# Access with loc
+df.loc[row_index, "Column"]
+
+# Access with iloc
+df.iloc[row_start:row_end, col_start:col_end]
+
+# Bar chart
+.plot(kind="bar")
+
+# Line chart
+.plot(kind="line")
+
+# Pie chart
+.plot(kind="pie")</code></pre>
+</section>
+
+<section id="syntax">
+  <h2>Core Syntax Reference</h2>
+  <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+pd.read_csv("file.csv")
+df.head()
+df.info()
+df.describe()
+df["Column"]
+df[df["Column"] == "Value"]
+df.value_counts()
+df.unique()
+df.sort_values("Column")
+df.idxmax()
+df.idxmin()
+df.loc[]
+df.iloc[]
+df.groupby("Column").sum()
+df.groupby("Column").mean()
+pd.to_datetime()
+plt.show()</code></pre>
+</section>
+
+</main>
+<footer>
+  <p>© 2025 T Level Digital Production, Design and Development ESP reference. For educational use only.</p>
+</footer>
+</body>
+</html>
