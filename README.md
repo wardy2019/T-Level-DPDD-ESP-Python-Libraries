@@ -2,8 +2,6 @@
 
 This repository contains a **complete knowledge library** for Task 4a of the T Level Digital Production, Design and Development ESP exam. It provides **fully PEP 8–compliant Python code examples** with inline comments, designed to support both **students revising for the assessment** and **Copilot knowledge agents** linking to this repo.  
 
----
-
 ## What’s Included
 - **index.html** – A self-contained reference page covering:
 - Importing and reading CSV files with pandas  
@@ -29,8 +27,6 @@ This resource has two main goals:
 1. **Student Support** – A black-and-white, revision-friendly knowledge library that explains every pandas and matplotlib command needed for Task 4a.  
 2. **AI Integration** – A structured, clean reference that can be linked with Copilot agents or other AI assistants for instant lookups.  
 
----
-
 ## How to Use
 1. **Students**  
    - Open `index.html` in your browser.  
@@ -41,7 +37,6 @@ This resource has two main goals:
    - Share the HTML file or repo link with students.  
    - Use it as a classroom knowledge base or revision tool.  
    - Add additional `.py` files or datasets in folders if needed.  
-
 
 ## Licence
 This material is © 2025 and intended for **educational use only**.  
