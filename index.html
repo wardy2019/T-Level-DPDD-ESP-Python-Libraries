@@ -4,136 +4,146 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>T Level ESP Task 4a – Pandas & Matplotlib Knowledge Library</title>
-<meta name="description" content="Reference library of pandas and matplotlib commands for Task 4a in the T Level Digital Production, Design and Development ESP.">
+
 <style>
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;background:#fff;color:#0f172a;line-height:1.6;margin:0}
   header{background:#2563eb;color:#fff;padding:1.5rem}
-  header h1{margin:0;font-size:1.5rem}
   main{max-width:960px;margin:0 auto;padding:1rem}
-  h2{border-bottom:2px solid #e2e8f0;padding-bottom:.3rem;margin-top:2rem;color:#1e3a8a}
-  h3{margin-top:1.2rem;color:#0f172a}
-  pre{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:.75rem;overflow-x:auto}
-  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  h2{margin-top:2rem}
+  pre{background:#f8fafc;padding:.75rem;overflow-x:auto}
 </style>
 </head>
 
 <body>
+
 <header>
-  <h1>T Level ESP Task 4a – Pandas & Matplotlib Knowledge Library</h1>
-  <p>Reference of commands and examples for ESP tasks.</p>
+<h1>T Level ESP Task 4a – Pandas & Matplotlib Knowledge Library</h1>
+<p>Complete reference for ESP coding, debugging, and data analysis tasks.</p>
 </header>
 
 <main>
 
 <h2>Importing Data</h2>
 <pre><code>
-import pandas as pd
-import matplotlib.pyplot as plt
+import pandas as pd                # import pandas for data analysis
+import matplotlib.pyplot as plt   # import matplotlib for graphs
 
-df = pd.read_csv("data.csv")
-print(df.head())
-print(df.info())
-print(df.describe())
+df = pd.read_csv("data.csv")     # load CSV into DataFrame
+print(df.head())                 # preview first 5 rows
+print(df.info())                 # view structure and missing values
+print(df.describe())             # view statistics
 </code></pre>
 
 <h2>Selecting and Filtering</h2>
 <pre><code>
-df["Column"]
-df[["Column1", "Column2"]]
+df["Column"]                     # select a single column
 
-df[df["Column"] == "Value"]
-df[(df["Column"] == "A") & (df["Other"] == "B")]
+df[["Column1", "Column2"]]       # select multiple columns
+
+df[df["Column"] == "Value"]      # filter rows by value
+
+df[(df["Column"] == "A") & (df["Other"] == "B")]   # multiple conditions
+
+df.loc[:, ["Column1", "Column2"]]   # select specific columns safely
 </code></pre>
 
 <h2>Counting and Sorting</h2>
 <pre><code>
-df["Item"].value_counts()
-df["Item"].unique()
+df["Item"].value_counts()        # count occurrences
 
-df.sort_values("Value", ascending=False)
+df["Item"].unique()              # show unique values
 
-df["Value"].idxmax()
-df.loc[df["Value"].idxmax()]
+df.sort_values("Value", ascending=False)   # sort highest to lowest
+
+df["Value"].idxmax()             # index of highest value
+
+df.loc[df["Value"].idxmax()]     # show row with highest value
 </code></pre>
 
 <h2>Creating Columns</h2>
 <pre><code>
-df["NewColumn"] = df["Value"] * 1.2
-df["IsLarge"] = df["Value"] > 50
+df["NewColumn"] = df["Value"] * 1.2   # create calculated column
+
+df["IsLarge"] = df["Value"] > 50      # create boolean column
 </code></pre>
 
-<h2>Data Cleaning and Preparation</h2>
+<h2>Data Cleaning</h2>
 <pre><code>
-df.isnull().sum()
-df.fillna(0, inplace=True)
-df.dropna(inplace=True)
+df.isnull().sum()               # check missing values
 
-df.drop(columns=["Column"], inplace=True)
+df.fillna(0, inplace=True)      # replace missing values
 
-df.rename(columns={"Old": "New"}, inplace=True)
+df.dropna(inplace=True)         # remove missing rows
+
+df.drop(columns=["Column"], inplace=True)   # delete column
+
+df.rename(columns={"Old": "New"}, inplace=True)   # rename column
+
+subset = df[df["Category"] == "A"].copy()   # create safe subset before editing
 </code></pre>
 
 <h2>Grouping and Aggregation</h2>
 <pre><code>
-df.groupby("Category")["Value"].sum()
-df.groupby("Category")["Value"].mean()
-df.groupby("Category")["Value"].count()
-df.groupby("Category")["Value"].max()
-df.groupby("Category")["Value"].min()
+df.groupby("Category")["Value"].sum()   # total per category
+
+df.groupby("Category")["Value"].mean()  # average per category
+
+df.groupby("Category")["Value"].count() # count per category
+
+df.groupby("Category")["Value"].max()   # highest per category
+
+df.groupby("Category")["Value"].min()   # lowest per category
 
 result = df.groupby("Category")["Value"].sum().reset_index()
+# turn grouped data back into table
 
 df.groupby("Category")["Value"].sum().sort_values(ascending=False)
+# group then sort
+
+df.sort_values(["Column1","Column2"], ascending=[True, False])
+# sort by multiple columns
 </code></pre>
 
 <h2>Working with Dates</h2>
 <pre><code>
-df["Date"] = pd.to_datetime(df["Date"])
-df["Weekday"] = df["Date"].dt.day_name()
+df["Date"] = pd.to_datetime(df["Date"])   # convert to datetime
+
+df["Weekday"] = df["Date"].dt.day_name()  # extract weekday name
+
+trend = df.groupby("Date")["Value"].sum().sort_index()
+# grouped data sorted to show trends over time
 </code></pre>
 
 <h2>Error Handling (try/except)</h2>
 <pre><code>
-# File errors
 try:
     df = pd.read_csv("data.csv")
 except FileNotFoundError:
     print("File not found")
 
-# Column errors
 try:
     print(df["Sales"])
 except KeyError:
     print("Column not found")
 
-# Input errors
 try:
     choice = int(input("Enter number: "))
 except ValueError:
     print("Invalid input")
 </code></pre>
 
-<h2>Functions</h2>
-<pre><code>
-def show_total():
-    print(df["Value"].sum())
-
-show_total()
-</code></pre>
-
 <h2>Graphing</h2>
 <pre><code>
 df.groupby("Category")["Value"].sum().plot(kind="bar")
-plt.title("Totals")
+plt.title("Totals by Category")
 plt.xlabel("Category")
 plt.ylabel("Value")
+plt.xticks(rotation=45)
 plt.legend()
 plt.show()
 
 df.groupby("Date")["Value"].sum().plot(kind="line")
 plt.title("Trend over time")
-plt.xlabel("Date")
-plt.ylabel("Value")
 plt.grid(True)
 plt.show()
 
@@ -144,16 +154,20 @@ plt.show()
 
 <h2>Accessing Data</h2>
 <pre><code>
-df.loc[0, "Value"]
-df.iloc[0:3, 1:3]
+df.loc[0, "Value"]              # access by label
+
+df.iloc[0:3, 1:3]               # access by position
 </code></pre>
 
 <h2>Statistics</h2>
 <pre><code>
-df["Value"].mean()
-df["Value"].min()
-df["Value"].max()
-df["Value"].sum()
+df["Value"].mean()              # average
+
+df["Value"].min()               # minimum
+
+df["Value"].max()               # maximum
+
+df["Value"].sum()               # total
 </code></pre>
 
 <h2>Core Syntax Reference</h2>
@@ -165,7 +179,6 @@ df.describe()
 
 df["Column"]
 df[["Col1", "Col2"]]
-df[df["Column"] == "Value"]
 
 df["Column"].value_counts()
 df["Column"].unique()
@@ -181,6 +194,26 @@ df.groupby("Column")["Value"].mean()
 plt.show()
 </code></pre>
 
+<h2>Common Exam Tasks (What to Use)</h2>
+<pre><code>
+# Total for each category
+df.groupby("Category")["Value"].sum()
+
+# Most common item
+df["Item"].value_counts()
+
+# Highest value row
+df.loc[df["Value"].idxmax()]
+
+# Trend over time
+df.groupby("Date")["Value"].sum().sort_index()
+
+# Create a bar chart
+df.groupby("Category")["Value"].sum().plot(kind="bar")
+plt.show()
+</code></pre>
+
 </main>
+
 </body>
 </html>
